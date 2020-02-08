@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/ai/index",
+    "pages/blackboard/index",
+    "pages/ai/camera/camera",
+    "pages/ai/search",
+    "pages/ai/filter/filter",
+    "pages/android/qa",
+    "pages/index/index",
+    "pages/sort/sort",
+    "pages/result/gan",
+    "pages/result/list",
+    "pages/hazardous/index",
+    "pages/residual/index",
+    "pages/recyclable/index",
+    "pages/household/index",
+    "pages/noResult/noResult",
+    "pages/exam/exam",
+    "pages/exam/paper/paper",
+    "pages/exam/result/result",
+    "pages/result/commit",
+    "pages/user/user",
+    "pages/searchHistory/searchHistory"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00cc77",
+    "navigationBarTitleText": "智能垃圾分类",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/ai/index",
+        "text": "识别",
+        "iconPath": "images/icon_ai_default.png",
+        "selectedIconPath": "images/icon_ai.png"
+      },
+      {
+        "pagePath": "pages/blackboard/index",
+        "text": "分类",
+        "iconPath": "images/icon_sort_default.png",
+        "selectedIconPath": "images/icon_sort.png"
+      },
+      {
+        "pagePath": "pages/exam/exam",
+        "text": "答题",
+        "iconPath": "images/kaoshi_default.png",
+        "selectedIconPath": "images/kaoshi.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/icon_user_default.png",
+        "selectedIconPath": "images/icon_user.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

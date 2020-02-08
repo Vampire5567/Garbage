@@ -1,0 +1,35 @@
+<scroll-view scroll-y class="scrollPage">
+    <image src='../../images/exam.jpg' mode='widthFix' class='response'></image>
+</scroll-view>
+
+<!-- <view class="cu-bar bg-white solid-bottom ">
+    <view class="action">
+        <text class="cuIcon-title text-blue"></text>知识测试
+    </view>
+
+    <view class="action">
+        <button class="cu-btn  round line-blue" >英雄榜</button>
+    </view>
+</view> -->
+
+<view class="margin-top text-center">
+    <view class="padding-lr bg-white">
+        <view class="solid-bottom padding">
+            <text class="text-sm text-bold">
+                垃圾分类时代已经到了，你是否已经掌握了垃圾分类的知识？快来测测吧！
+            </text>
+        </view>
+
+        <view class="flex solid-bottom padding justify-around">
+            <view>
+                <button class="cu-btn  round line-brown"  open-type="share">找人帮忙</button>
+            </view>
+            <view>
+                <navigator open-type="navigate" hover-class='none' url="/pages/exam/paper/paper" >
+                    <button class="cu-btn  round line-blue">开始答题</button>
+                </navigator>
+            </view>
+        </view>
+    </view>
+</view>
+

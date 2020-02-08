@@ -1,0 +1,10 @@
+<view class="page-wrapper">
+  <view class="title">可回收物</view>
+  <view class="desc">可回收物就是可以再生循环的垃圾。本身或材质可再利用的纸类、硬纸板、玻璃、塑料、金属、塑料包装，与这些材质有关的如：报纸、杂志、广告单及其它干净的纸类等皆可回收。</view>
+  <view class='imgList-li' wx:for='{{imgArr}}'>
+    <image class='paycode' src='{{item}}' data-index='{{index}}' bindtap='previewImg'></image>
+  </view>
+  <view class="adContainer">
+    <ad unit-id="adunit-2f4b14df029312bf"></ad>
+  </view>  
+</view>

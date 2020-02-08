@@ -1,0 +1,122 @@
+/* pages/exam/exam.wxss */
+page {
+  line-height: 1.6;
+  font-family: -apple-system-font,Helvetica Neue,sans-serif;
+  width: 100%;
+  height: 100%;
+  background-color: #fdfdfd;
+  font-size: 28rpx;
+  color: #333333;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+view, scroll-view, swiper, button, input, textarea, label, navigator, image {
+  box-sizing: border-box;
+}
+view {
+  display: block;
+}
+scroll-view {
+  display: block;
+  width: 100%;
+}
+.response {
+  width: 100%;
+}
+image {
+  max-width: 100%;
+  display: inline-block;
+  position: relative;
+  z-index: 0;
+}
+.bg-white {
+  background-color: #fdfdfd;
+  color: #666666;
+}
+.cu-bar {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+}
+.cu-bar .action:first-child {
+  margin-left: 30rpx;
+  font-size: 30rpx;
+}
+.cu-bar .action {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  max-width: 100%;
+}
+.text-blue, .line-blue, .lines-blue {
+  color:  #0081ff;
+}
+.cu-bar .action:last-child {
+  margin-right: 30rpx;
+}
+.cu-btn {
+  position: relative;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  height: 64rpx;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  overflow: visible;
+  margin-left: initial;
+  transform: translate(0rpx, 0rpx);
+  margin-right: initial;
+}
+.text-center {
+  text-align: center;
+}
+.margin-top {
+  margin-top: 30rpx;
+}
+.bg-white {
+  background-color: #fdfdfd;
+  color:#666666;
+}
+.padding-lr {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+.padding {
+  padding: 30rpx;
+}
+.solid, .solid-top, .solid-right, .solid-bottom, .solid-left, .solids, .solids-top, .solids-right, .solids-bottom, .solids-left, .dashed, .dashed-top, .dashed-right, .dashed-bottom, .dashed-left {
+  position: relative;
+}
+.text-bold {
+  font-weight: bold;
+}
+.text-sm {
+  font-size: 24rpx;
+}
+.text-bold {
+  font-weight: bold;
+}
+.text-sm {
+  font-size: 24rpx;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.flex {
+  display: flex;
+}
+.text-brown, .line-brown, .lines-brown {
+  color:#a5673f;
+}
+navigator {
+  height: auto;
+  width: auto;
+  display: block;
+}

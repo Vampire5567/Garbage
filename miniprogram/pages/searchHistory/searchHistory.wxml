@@ -1,0 +1,8 @@
+<view class="container">
+    <view class="garbage-list">
+        <view class="garbage-item" wx:for="{{searchHistory}}">
+            <text>{{item.garbageName}}</text>
+            <text>{{item.garbageType}}</text>
+        </view>
+    </view>
+</view>

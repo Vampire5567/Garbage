@@ -1,6 +1,6 @@
 //app.js
 App({
-  onLaunch: function() {
+  onLaunch: function () {
 
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -10,26 +10,29 @@ App({
         traceUser: true,
       })
     };
-
-    try {
+      
+      // getStorage api  移除trycatch   改用if语句
+      // tryctach  获取storage出错情况不包括 openid该值不存在的情况,不存在会返回空字符串
       var openId = wx.getStorageSync('openId')
-      if (openId) {
-        console.log(openId);      
-      }
-    } catch (e) {
-      //获取openId，存入storage
-      wx.cloud.callFunction({
-        name: 'getOpenId',     
-      }).then( res => {
-        // console.log(res.result.event.userInfo.openId);
-        wx.setStorage({
-          key: "openId",
-          data: res.result.event.userInfo.openId
-        });  
-      })
-    }
-
     
+      if (openId) {
+        console.log(openId);
+      } else {
+        //获取openId，存入storage
+        console.log(123);
+
+        wx.cloud.callFunction({
+          name: 'getOpenId',
+        }).then(res => {
+          // console.log(res.result.event.userInfo.openId);
+          wx.setStorage({
+            key: "openId",
+            data: res.result.event.userInfo.openId
+          });
+        })
+      }
+
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -51,14 +54,14 @@ App({
       }
     });
     const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(function(res) {
+    updateManager.onCheckForUpdate(function (res) {
       console.log(res.hasUpdate)
       if (res.hasUpdate) {
-        updateManager.onUpdateReady(function() {
+        updateManager.onUpdateReady(function () {
           wx.showModal({
             title: '更新提示',
             content: '新版本已经准备好，是否重启应用？',
-            success: function(res) {
+            success: function (res) {
               if (res.confirm) {
                 updateManager.applyUpdate()
               }
@@ -67,16 +70,16 @@ App({
         })
       }
     })
-    updateManager.onUpdateFailed(function() {
+    updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
     wx.getStorage({
       key: 'logined',
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   globalData: {

@@ -1,48 +1,45 @@
-// pages/searchHistory/searchHistory.js
+// pages/examHistory/examHistory.js
 const db = wx.cloud.database();
 Page({
   data: {
     historyGroup: [],
-    load: false
+    load:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
+    let historyGroup = [];
+    let historyGroupMap = {};
+    let examHistory;
     this.setData({
       load: true
     })
-    wx.showLoading({
-      title: '加载中...',
-      mask: true,
-    });
-    let historyGroup = [];
-    let historyGroupMap = {};
-    let searchHistory;
     // 获取用户的搜索记录
     const openId = wx.getStorageSync('openId');
     try {
-      const userDocs = await db.collection('user').where({
-        _openid: openId,
-      }).get();
-       searchHistory = userDocs.data[0].searchHistory;
-       
-       
+      const userDocs = await db
+        .collection('user')
+        .where({
+          _openid: openId,
+        })
+        .get();
+      examHistory = userDocs.data[0].examHistory;
     } catch (error) {}
+   
     // 将搜索记录按日期作为key,转化为对象结构,方便处理
-    wx.hideLoading();
-    if (searchHistory.length > 0) {
-      searchHistory.forEach(item => {
+    if (examHistory.length > 0) {
+      examHistory.forEach(item => {
         const itemDate = new Date(item.date);
         const year = itemDate.getFullYear();
         const month = itemDate.getMonth() + 1;
         const date = itemDate.getDate();
         const dateString = `${year}年${month}月${date}日`;
         if (historyGroupMap[dateString]) {
-          historyGroupMap[dateString].push(item.key);
+          historyGroupMap[dateString].push(item);
         } else {
-          historyGroupMap[dateString] = [item.key];
+          historyGroupMap[dateString] = [item];
         }
       });
     }
@@ -64,15 +61,15 @@ Page({
       historyGroup,
     });
   },
-  onShow(){
-    this.onLoad()
+  onShow() {
+    this.onLoad();
   },
-  navigate(event){
-    console.log(event);
-    
-    const key = event.currentTarget.dataset.key;
+  navigate(event) {
+    const data = event.currentTarget.dataset.data;
+    wx.setStorageSync('cateItems', data.cateItems);
+    wx.setStorageSync('score', data.score);
     wx.navigateTo({
-      url: `/pages/ai/search?key=${key}`,
+      url: '/pages/exam/result/result?historyMode=yes',
     });
-  }
+  },
 });

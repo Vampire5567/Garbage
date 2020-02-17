@@ -19,8 +19,6 @@ App({
         console.log(openId);
       } else {
         //获取openId，存入storage
-        console.log(123);
-
         wx.cloud.callFunction({
           name: 'getOpenId',
         }).then(res => {

@@ -1,5 +1,7 @@
 // pages/user/user.js
+
 const db = wx.cloud.database();
+const _ = db.command
 const user = db.collection("user");
 Page({
   /**
@@ -105,7 +107,9 @@ Page({
                   // data 字段表示需新增的 JSON 数据
                   data: {
                     nickName: that.data.nickName,
-                    avatarUrl: that.data.avatarUrl
+                    avatarUrl: that.data.avatarUrl,
+                    searchHistory:[],
+                    examHistory:[]
                   }
                 });
               }
@@ -115,9 +119,59 @@ Page({
     } catch (e) {}
   },
 
-  goToPages:function(){
-
+  navigate(event){
+    const logined = this.data.logined
+    if(!logined) return
+    const page = event.target.dataset.page
+    
+    if(page === 'search'){
+      wx.navigateTo({
+        url:"/pages/searchHistory/searchHistory",
+      });
+    }
+    if(page === 'exam'){
+      wx.navigateTo({
+        url:"/pages/examHistory/examHistory",
+      });
+    }
   },
+   clearCache(){
+    const openId = wx.getStorageSync('openId');
+    const logined = this.data.logined
+    if(!logined) return
+    wx.showModal({
+      title: '清除缓存',
+      content: '是否确定清除缓存',
+      async success (res) {
+        if (res.confirm) {
+          try {
+            const user = db.collection('user');
+            const res = await user.where({
+              _openid: openId,
+            }).get()
+            const userId = res.data[0]._id;
+            await user.doc(userId).update({
+              data:{
+                examHistory: _.set([]),
+                searchHistory:_.set([])
+              }
+            })
+            wx.showToast({
+              title: '清除成功',
+              icon: 'success',
+              duration: 1000
+            })
+            
+          } catch (error) {
+            console.log(error);
+            
+          }
+        } else if (res.cancel) {
+          return
+        }
+      }
+    })
+  }
 
   
 });

@@ -2,15 +2,16 @@
     <view class="garbage-group" wx:for="{{historyGroup}}" wx:for-item="groupItem">
         <text class="garbage-date">{{groupItem.date}}</text>
         <view class="garbage-list">
-            <view class="garbage-item" wx:for="{{groupItem.list}}" data-key="{{item}}" bindtap="navigate">
-                <text>{{item}}</text>
+            <view class="garbage-item" wx:for="{{groupItem.list}}" data-data="{{item}}" bindtap="navigate">
+                <text>{{item.name}}</text>
+                <text> 得分: {{item.score}}</text>
                 <image src="../../images/arrow-left.png"></image>
             </view>
         </view>
     </view>
     <view class="garnage-none"  wx:if="{{historyGroup.length === 0 }}" >
         <view wx:if="{{!load}}">
-            暂无搜索记录,请先搜索哦!
+            暂无答题记录,请先答题哦!
         </view>
         
     </view>

@@ -7,8 +7,17 @@
         <button type="primary" bindgetuserinfo="getUserInfo"  class="user-login" size="mini" open-type="getUserInfo" wx:else="{{logined}}">登录</button>
     </view>
     <view class="function-list">
-        <view wx:for="{{items}}" class="function-items" bindtap='goToPages'>
-            <text>{{item}}</text>
+        <view  class="function-items" data-page="search" bind:tap="navigate">
+            <text>搜索历史</text>
+            <image src="../../images/arrow-left.png" bind></image>
+        </view>
+        <view  class="function-items" data-page="exam" bind:tap="navigate">
+            <text>答题历史</text>
+            <image src="../../images/arrow-left.png"></image>
+        </view>
+
+        <view  class="function-items" bind:tap="clearCache">
+            <text>清空缓存</text>
             <image src="../../images/arrow-left.png"></image>
         </view>
     </view>

@@ -1,5 +1,5 @@
 <view id="searchWrapper">
-    <input confirm-type="search" focus="{{true}}" bindconfirm="searchIcon" id="search" placeholder="搜索垃圾查看对应分类" type="text"></input>
+    <input confirm-type="search" disabled="{{historyMode}}"  value="{{searchTxt}}" bindconfirm="searchIcon" id="search" placeholder="搜索垃圾查看对应分类" type="text"></input>
     <image id="magnifier" src="../../images/tab_bar_icon_magnifier.png"></image>
     <view bindtap="clearSearchText" id="clearSearchText" style="display: {{searchText.length>0?'block':'none'}};"></view>
     <text bindtap="cancelSearch" id="cancelSearch">取消</text>

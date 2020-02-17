@@ -2,37 +2,27 @@
 Page({
   data: {
     cateItems:[],
-    score:0
+    score:0,
+    historyMode: false
   },
   /**
   * 生命周期函数--监听页面加载
   */
   onLoad: function (options) {
-    let question = wx.getStorageSync("question");
-    question = JSON.parse(question);
-    let answer = wx.getStorageSync("answer");
-    answer = JSON.parse(answer);
-    let cateItems = [];
-    let score = 0;
-
-    for (let i=0;i<question.length;i++){
-      let que = {};
-      que.name = question[i].n;
-      que.cname = c(question[i].c);
-      que.aname = c(answer[i]);
-      que.color = 'red';
-      if (que.cname == que.aname){
-        que.color = 'green';
-        score += 10;
-      }
-      cateItems.push(que);
+    if(options.historyMode){
+      this.setData({
+        historyMode: true,
+      });
     }
+    let cateItems = wx.getStorageSync("cateItems");
+    let score = wx.getStorageSync("score");
     this.setData({
       cateItems: cateItems,
       score:score
     });
   },
   onUnload: function () {
+    if(this.data.historyMode) return
     wx.navigateBack({
       url: '../../exam/exam'
     })

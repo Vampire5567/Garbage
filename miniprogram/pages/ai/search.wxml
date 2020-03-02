@@ -12,7 +12,7 @@
       <image class="img" src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
       <text  >{{item.name}}「 {{config.cats[config.cities[city].cats[map[item.sortId]]].name}} 」</text>
     </view>
-    
+
     <view class="item-view item-ji bg-grey" wx:else>
       <image class="img" src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
       <text  >{{item.name}}「 {{config.cats[config.cities[city].cats[map[item.sortId]]].name}} 」</text>
@@ -27,7 +27,6 @@
   <text class="content">未找到相关内容</text>
   <view class="btn-view">
     <view class="btn-commit" bindtap="onGoHome"> 回首页</view>
-    <view class="btn-commit" bindtap="commit"> 去提交</view>
   </view>
 </view>
 </block>

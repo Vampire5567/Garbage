@@ -107,21 +107,25 @@ Page({
           // 将搜索的包含关键字的结果存入datas数组
           const data = res.data
           console.log( that.data.datas)
+         
+           if( data.length === 0 && that.data.page === 0 ){
+            that.setData({
+              isHasData: false
+            });
+            return
+           }
+          if (data.length < that.data.MAX_LIMIT  && that.data.page>0 ) {
+            wx.showToast({
+              title: "数据已经加载完",
+              icon: "none"
+            });
+            
+          }
           that.setData({
             datas: that.data.datas.concat(data),
             isHasData: true,
             page:that.data.page + 1
           });
-
-          if (data.length < that.data.MAX_LIMIT && that.data.page>1) {
-            wx.showToast({
-              title: "数据已经加载完",
-              icon: "none"
-            });
-            that.setData({
-              isHasData: false
-            });
-          }
         },
         fail: res => {
           wx.hideLoading();
@@ -138,11 +142,6 @@ Page({
   onGoHome: function() {
     wx.switchTab({
       url: "/pages/ai/index"
-    });
-  },
-  commit: function() {
-    wx.navigateTo({
-      url: "/pages/result/commit?keyword=" + this.data.searchTxt
     });
   },
   onItemClick: function(event) {

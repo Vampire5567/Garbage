@@ -1,27 +1,26 @@
+<!-- 搜索框 -->
 <view id="searchWrapper">
     <input confirm-type="search" disabled="{{historyMode}}"  value="{{searchTxt}}" bindconfirm="searchIcon" id="search" placeholder="搜索垃圾查看对应分类" type="text"></input>
     <image id="magnifier" src="../../images/tab_bar_icon_magnifier.png"></image>
-    <view bindtap="clearSearchText" id="clearSearchText" style="display: {{searchText.length>0?'block':'none'}};"></view>
     <text bindtap="cancelSearch" id="cancelSearch">取消</text>
 </view>
 
 <block wx:if="{{isHasData}}">
 <view id="listView">
-  <view class="filter-view" wx:for="{{datas}}" wx:key 
-  bindtap="onItemClick" data-index="{{item.sortId}}">
+  <view class="filter-view" wx:for="{{datas}}" wx:key bindtap="onItemClick" data-index="{{item.sortId}}">
     <view class="item-view item-o bg-white"  wx:if="{{index%2==0}}">
-      <image class="img" 
-      src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
+      <image class="img" src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
       <text  >{{item.name}}「 {{config.cats[config.cities[city].cats[map[item.sortId]]].name}} 」</text>
     </view>
+    
     <view class="item-view item-ji bg-grey" wx:else>
-      <image class="img" 
-      src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
+      <image class="img" src="{{config.cats[config.cities[city].cats[map[item.sortId]]].imageSrc}}"></image>
       <text  >{{item.name}}「 {{config.cats[config.cities[city].cats[map[item.sortId]]].name}} 」</text>
     </view>
   </view>
 </view>
 </block>
+
 <block wx:else>
 <view class="no-view" >
   <image class="no-img" src="/images/no-result.png"></image>

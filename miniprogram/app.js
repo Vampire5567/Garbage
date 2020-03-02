@@ -1,5 +1,7 @@
 //app.js
 App({
+
+  //onlaunch监听小程序初始化，全局只触发一次
   onLaunch: function () {
 
     if (!wx.cloud) {
@@ -11,8 +13,9 @@ App({
       })
     };
       
-      // getStorage api  移除trycatch   改用if语句
-      // tryctach  获取storage出错情况不包括 openid该值不存在的情况,不存在会返回空字符串
+      // getStorage api  移除try catch   改用if语句
+      // try catch  获取storage出错情况不包括 openid该值不存在的情况,不存在会返回空字符串
+      // 调用云函数getOpenId，取得openId的值存储在storage
       var openId = wx.getStorageSync('openId')
     
       if (openId) {
@@ -71,11 +74,11 @@ App({
     updateManager.onUpdateFailed(function () {
       // 新版本下载失败
     })
+
+    // 将登陆状态logined存储到storage
     wx.getStorage({
       key: 'logined',
-      success: (result) => {
-
-      },
+      success: (result) => { },
       fail: () => { },
       complete: () => { }
     });

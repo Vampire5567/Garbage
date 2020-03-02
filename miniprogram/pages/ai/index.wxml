@@ -1,39 +1,35 @@
 <view id="header">
+    <!-- 选择城市 -->
     <view bindtap="showChooseCity" id="currentCity" style="{{hideCurrentCity?'opacity: 0;':''}}">
         <image id="location" src="{{images.location}}"></image>
         <text id="city">{{config.cities[city].name}}</text>
     </view>
+    <!-- 搜索框 -->
     <view bindtap="startSearch" id="fakeSearch" style="{{fakeSearchLeft}}">
         <image id="magnifier" src="{{images.magnifier}}"></image>
         <text>{{tipInfo.searchPlaceholder}}</text>
     </view>
+    <!-- 滚动条 -->
     <view bindtap="switchToTest" id="broadcast">
         <text>「垃圾分类测试」已上线，朋友圈晒成绩单，大家一起来比拼！</text>
     </view>
 </view>
+<!-- ai相机识别 -->
 <view class='ai-view'>
   <text class='txt'>或</text>
   <image src='/images/paizhao.png' class='ai-paizhao' bindtap='onBindCamera' />
   <text class='tip'>自动识别</text>
-
-</view>
-<view class="box" wx:if="{{SHOW_TOP}}">
-  <view class='arrow'></view>
-  <view class='body' bindtap='showModal'>
-    <text>点击「添加到我的小程序」</text>
-  </view>
 </view>
 
 <button class="share index" openType="share" style="display: block;">
     <image src="/images/share.png"></image>
     <text>分享</text>
 </button>
-<!-- <button class="cs index" bindtap="showZsm">
-    <image src="/images/qr_b.png"></image>
-    <text>打赏</text>
-</button> -->
 
+<!-- 灰色蒙版 -->
 <view bindtap="closeOverlay" id="overlay" style="display: {{showChooseCity?'block':'none'}};"></view>
+
+<!-- 城市选择框 -->
 <view id="chooseCity" style="display: {{showChooseCity?'block':'none'}};">
     <view id="chooseCityCurrent">
         <image src="{{images.location}}"></image>

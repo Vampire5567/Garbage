@@ -92,17 +92,6 @@ var e = {
           },
           imageSrc: "../../images/OtherWasteIcon.png"
         },
-        other2: {
-          name: "其他垃圾",
-          intro: "是指除有害垃圾、可回收物、厨余（餐厨）垃圾以外的其他生活废弃物。",
-          requirements: ["尽量沥干水分", "难以辨识类别的生活垃圾投入其他垃圾容器内"],
-          color: {
-              r: 73,
-              g: 73,
-              b: 73
-          },
-          imageSrc: "../../images/OtherWasteIcon2.png"
-        }
     },
     cities: {
         shanghai: {
@@ -113,7 +102,7 @@ var e = {
         xian: {
             key: "xian",
             name: "西安",
-            cats: [ "kitchen1", "other2", "recyclable", "hazardous" ]
+            cats: [ "kitchen1", "other", "recyclable", "hazardous" ]
         },
         chengdu: {
             key: "chengdu",
@@ -123,7 +112,7 @@ var e = {
         guangzhou: {
             key: "guangzhou",
             name: "广州",
-            cats: [ "kitchen2", "other2", "recyclable", "hazardous" ]
+            cats: [ "kitchen2", "other", "recyclable", "hazardous" ]
         },
         ningbo: {
             key: "ningbo",

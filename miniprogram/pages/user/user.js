@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    items: ["搜索历史", "答题历史", "清空缓存"],
     logined: false,
     nickName: null,
     avatarUrl: "../../images/avatar_default.png"
@@ -98,7 +97,7 @@ Page({
           .get({
             success(res) {
               console.log(res);
-              //如果数据库没有这条记录
+              //如果数据库没有这条记录，就新增一条记录
               console.log(res.data.length == 0);
 
               if (res.data.length == 0) {
@@ -120,8 +119,11 @@ Page({
   },
 
   navigate(event){
+    // 如果没有登录，不做任何操作
     const logined = this.data.logined
     if(!logined) return
+    console.log(event)
+    // 接收view层传递过来的参数page（data-page）
     const page = event.target.dataset.page
     
     if(page === 'search'){
@@ -135,6 +137,7 @@ Page({
       });
     }
   },
+  // 清除缓存
    clearCache(){
     const openId = wx.getStorageSync('openId');
     const logined = this.data.logined
@@ -149,6 +152,7 @@ Page({
             const res = await user.where({
               _openid: openId,
             }).get()
+            // 将当前用户的记录，搜索历史和答题历史置空           
             const userId = res.data[0]._id;
             await user.doc(userId).update({
               data:{

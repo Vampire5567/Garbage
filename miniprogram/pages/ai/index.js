@@ -2,123 +2,125 @@ var t = require("../../utils/module"),
   s = t(require("../../mainInfo.js")),
   n = require("../../tipInfo.js");
 
+  // App（）注册一个程序，是小程序的入口方法
+  // app（）必须在app.js中注册，且只能注册一个
+  // 通过getApp（）获取app（）中的全局对象，可以进行全局变量和全局方法的使用
 getApp();
 
 Page({
 
   data: {
-    SHOW_TOP: true,
     images: {
       magnifier: "/images/tab_bar_icon_magnifier.png",
-      qrB: "/images/qr_b.png",
-      wsgQr: "/images/zsm.jpg",
       location: "/images/location.png",
-      broadcast: "/images/broadcast.png"
+      // broadcast: "/images/broadcast.png"
     },
     tipInfo: n.tipInfo,
     city: "shanghai",
     
   },
 
+  // onLoad页面第一次加载时触发，从跳转页面返回时不能触发，可以传递参数
+  // 小程序之onShow 会在onLoad 执行完以后执行。onShow 页面每次都刷新，onLoad 初次页面刷新
   onLoad: function (options) {
-    this.initData(), wx.showShareMenu({
-      withShareTicket: !0
-    });
-
+    this.initData()
     var myDate = new Date();
+    //初始化时，城市选择框在2秒后自动弹出
     var isShowed = wx.getStorageSync("tip")
-    if (isShowed != 1) {
+    if (isShowed != true) {
       setTimeout(() => {
         this.setData({
-          SHOW_TOP: false,
-          showChooseCity: !0,
-          enableScroll: !1
+          showChooseCity: true,
         })
-        wx.setStorageSync("tip", 1)
-      }, 2 * 1000)
-    } else {
-      this.setData({
-        SHOW_TOP: false
-      })
-    }
-
-    
+        wx.setStorageSync("tip", true)
+      }, 2000)
+    } else {}   
   },
 
+  // 初始化一些数据：将city的值存进storage，将mainInfo.js和tipInfo.js的数据导入，并将main.js中的城市信息做处理，赋值给cities数组
   initData: function () {
+    // 将city的值暂存进storage
+    // void 0 的作用的返回undefined
     void 0 === wx.getStorageSync("city") || 0 === wx.getStorageSync("city").length ? (wx.setStorageSync("city", this.data.city)) : this.setData({
       city: wx.getStorageSync("city")
     });
+    // 将各城市的信息由对象{}转为数组[]
     var e = [];
-    for (var a in s.default.cities) e.push(s.default.cities[a]);
+    for (var a in s.default.cities){
+      e.push(s.default.cities[a]);
+    }
+    // console.log(e) 
+    // console.log(n)  
+    // console.log(s) 
     this.setData({
       tipInfo: n.tipInfo,
       config: s.default,
       cities: e
     });
   },
-  onShow: function () {
-    (this.setData({
-      tipInfo: n.tipInfo
-    }))
 
+  onShow: function () {
+    // this.setData({
+    //   tipInfo: n.tipInfo
+    // })
+    // 将city的值从storage读取赋值到本地this.data.city(同步city的值)
     wx.getStorageSync("city") !== this.data.city && this.setData({
       city: wx.getStorageSync("city"),
-    });
-    this.setFakeSearchLeft()
+    });  
   },
+
+  // 点击搜索框，跳转到文字搜索页面
   startSearch: function (t) {
     wx.navigateTo({
       url: "../ai/search"
     });
   },
+
+  // 在城市选择框中选择城市
+  //view层选择的城市名称传到逻辑层接收
   chooseCity: function (t) {
     var e = t.currentTarget.dataset.itemKey;
-    e !== this.data.city && (wx.setStorageSync("city", e), this.setData({
+    console.log(e)
+    e !== this.data.city && (wx.setStorageSync("city", e), 
+    this.setData({
       city: e,
-      showChooseCity: !1,
-      enableScroll: !0
-    }), this.setFakeSearchLeft());
+      showChooseCity: false,
+    })
+    );
   },
+
+  //点击灰色蒙版，关闭城市选择框
   closeOverlay: function () {
     this.setData({
-      showChooseCity: !1,
-      enableScroll: !0
+      showChooseCity: false,
     });
   },
+
+  // 点击显示城市选择框
   showChooseCity: function () {
     this.setData({
-      showChooseCity: !0,
-      enableScroll: !1
+      showChooseCity: true,
     });
   },
+
+  // 点击广播条切换到答题exam页面
   switchToTest: function () {
     wx.switchTab({
       url: "../../pages/exam/exam"
     });
   },
-  setFakeSearchLeft: function () {
-    var t = this;
-    wx.createSelectorQuery().select("#currentCity").boundingClientRect(function (e) {
-      t.setData({
-        fakeSearchLeft: "left: calc(25rpx + 21rpx + " + e.width + "px);"
-      });
-    }).exec();
-  },
-  goSearch: function () {
-    wx.navigateTo({
-      url: 'search',
-    })
-  },
+
+  // 开启摄像头权限，进入拍照页面
   onBindCamera: function () {
     wx.getSetting({
       success(res) {
+        // res是只会出现小程序已经向用户请求过的权限
         console.log(res);
         if (!res.authSetting['scope.camera']) {
           wx.authorize({
             scope: 'scope.camera',
             success() {
-              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+              // 用户已经同意小程序使用相机拍照功能，后续调用 wx.startRecord 接口不会弹窗询问
               wx.navigateTo({
                 url: 'camera/camera',
               })
@@ -153,22 +155,20 @@ Page({
       }
     })
   },
-  onAikefu: function () {
-    wx.navigateTo({
-      url: '/pages/android/qa',
-    })
-  },
+
+  // onAikefu: function () {
+  //   wx.navigateTo({
+  //     url: '/pages/android/qa',
+  //   })
+  // },
+
+  // 转发的卡片信息
   onShareAppMessage: function () {
     return {
-      title: "智能分类垃圾",
+      title: "智能垃圾分类",
       imageUrl: "../../images/no-result.png",
       path: "pages/ai/index"
     }
-  },
-  showZsm: function (t) {
-    wx.previewImage({
-      current: "https://6465-debug-5c669b-1259717830.tcb.qcloud.la/zsm.jpg?sign=16e6fff2194f22a46e6c753fbba4abd8&t=1576561884",
-      urls: ["https://6465-debug-5c669b-1259717830.tcb.qcloud.la/zsm.jpg?sign=16e6fff2194f22a46e6c753fbba4abd8&t=1576561884"],
-    })
   }
+
 })

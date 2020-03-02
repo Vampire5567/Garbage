@@ -7,6 +7,7 @@
         <button type="primary" bindgetuserinfo="getUserInfo"  class="user-login" size="mini" open-type="getUserInfo" wx:else="{{logined}}">登录</button>
     </view>
     <view class="function-list">
+    <!--事件 data-xxx：view层向逻辑层传递参数xxx，由bind：tap绑定的事件函数接收这个参数-->
         <view  class="function-items" data-page="search" bind:tap="navigate">
             <text>搜索历史</text>
             <image src="../../images/arrow-left.png" bind></image>

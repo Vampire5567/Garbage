@@ -1,4 +1,5 @@
 <view class="history">
+
     <view class="garbage-group" wx:for="{{historyGroup}}" wx:for-item="groupItem">
         <text class="garbage-date">{{groupItem.date}}</text>
         <view class="garbage-list">
@@ -8,10 +9,11 @@
             </view>
         </view>
     </view>
+
     <view class="garnage-none"  wx:if="{{historyGroup.length === 0 }}" >
         <view wx:if="{{!load}}">
             暂无搜索记录,请先搜索哦!
-        </view>
-        
+        </view>       
     </view>
+    
 </view>

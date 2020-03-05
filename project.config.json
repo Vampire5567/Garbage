@@ -106,6 +106,54 @@
 					"id": -1,
 					"name": "文字搜索页",
 					"pathName": "pages/ai/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ai/camera/camera",
+					"pathName": "pages/ai/camera/camera",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/result/gan",
+					"pathName": "pages/result/gan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "安卓",
+					"pathName": "pages/android/qa",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/blackboard/index",
+					"pathName": "pages/blackboard/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/exam/paper/paper",
+					"pathName": "pages/exam/paper/paper",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/examHistory/examHistory",
+					"pathName": "pages/examHistory/examHistory",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/searchHistory/searchHistory",
+					"pathName": "pages/searchHistory/searchHistory",
 					"scene": null
 				}
 			]

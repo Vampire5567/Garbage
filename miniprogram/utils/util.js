@@ -148,6 +148,7 @@ function Base64() {
   }
 }
 
+// 获取count个arr中随机抽取的数据组成的数组
 function randomArray(arr, count) {
   var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
   while (i-- > min) {

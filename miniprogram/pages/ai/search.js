@@ -24,15 +24,18 @@ Page({
       map: this.data.map,
       city: wx.getStorageSync("city")
     });
-    console.log(options);
-    // 从搜索记录进入为search页面
-    if (options.key) {
+    // 从搜索记录和拍照页进入为search页面
+    if (options.keyword) {
       this.setData({
-        searchTxt: options.key,
+        searchTxt: options.keyword,
         page: 0,
         datas: [],
-        historyMode: true
       });
+      if(options.historyMode === 'true'){
+        this.setData({
+          historyMode: true
+        });
+      }
       this.onGetData();
     }
   },

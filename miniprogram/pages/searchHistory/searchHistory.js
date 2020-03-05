@@ -1,4 +1,3 @@
-// pages/searchHistory/searchHistory.js
 const db = wx.cloud.database();
 Page({
   data: {
@@ -60,13 +59,13 @@ Page({
         });
         console.log(historyGroup);     
       }
-    }
-    this.setData({
-      load: false
-    })
+    } 
     this.setData({
       historyGroup:historyGroup
     });
+    this.setData({
+      load: false
+    })
   },
 
   //每次进入此页面，都要重新加载
@@ -77,7 +76,7 @@ Page({
     console.log(event);
     const key = event.currentTarget.dataset.key;
     wx.navigateTo({
-      url: `/pages/ai/search?key=${key}`,
+      url: `/pages/ai/search?keyword=${key}&historyMode=true`,
     });
   }
 });

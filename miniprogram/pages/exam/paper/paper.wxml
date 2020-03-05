@@ -1,9 +1,9 @@
 <view class="cu-bar bg-white solid-bottom ">
     <view class="action">
-        <text class="cuIcon-title text-blue"></text>共10题
+        <text class="cuIcon-title text-blue"></text>
+        共10题
     </view>
 </view>
-
 
 <block wx:for="{{question}}" wx:key>
     <view class="padding" hidden="{{num != index+1}}">
@@ -19,18 +19,18 @@
                             <text class="text-sm margin-left">湿垃圾</text>
                         </view>
                         <view class="flex-sub padding-sm margin-xs round bg-blue light">
-                            <radio class="red"  value="2"></radio>
+                            <radio class="red" value="2"></radio>
                             <text class="text-sm margin-left">干垃圾</text>
                         </view>
                     </view>
                     <view class="flex">
                         <view class="flex-sub padding-sm margin-xs round bg-brown light">
                             <radio class="red" value="3"></radio>
-                            <text class="text-sm margin-left">可回收</text>
+                            <text class="text-sm margin-left">可回收物</text>
                         </view>
                         <view class="flex-sub padding-sm margin-xs round bg-gray light">
-                            <radio class="red"  value="4"></radio>
-                            <text class="text-sm margin-left">有害</text>
+                            <radio class="red" value="4"></radio>
+                            <text class="text-sm margin-left">有害垃圾</text>
                         </view>
                     </view>
                 </view>
@@ -41,6 +41,10 @@
 
 <view class="flex solid-bottom padding justify-around">
     <button class="cu-btn line-blue round padding-sm margin-xs " bindtap="preSteps">上一题</button>
-    <button class="cu-btn line-green round padding-sm margin-xs " bindtap="nextSteps" hidden="{{num == question.length}}">下一题</button>
-    <button class="cu-btn line-green round padding-sm margin-xs " bindtap="nextSteps" hidden="{{num != question.length}}">查看成绩</button>
+    <button class="cu-btn line-green round padding-sm margin-xs " bindtap="nextSteps" hidden="{{num == question.length}}">
+        下一题
+    </button>
+    <button class="cu-btn line-green round padding-sm margin-xs " bindtap="nextSteps" hidden="{{num != question.length}}">
+        查看成绩
+    </button>
 </view>

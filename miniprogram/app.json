@@ -6,18 +6,9 @@
     "pages/ai/search",
     "pages/android/qa",
     "pages/index/index",
-    "pages/sort/sort",
-    "pages/result/gan",
-    "pages/result/list",
-    "pages/hazardous/index",
-    "pages/residual/index",
-    "pages/recyclable/index",
-    "pages/household/index",
-    "pages/noResult/noResult",
     "pages/exam/exam",
     "pages/exam/paper/paper",
     "pages/exam/result/result",
-    "pages/result/commit",
     "pages/user/user",
     "pages/searchHistory/searchHistory",
     "pages/examHistory/examHistory"
@@ -56,5 +47,6 @@
         "selectedIconPath": "images/icon_user.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

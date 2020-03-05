@@ -1,3 +1,18 @@
+function c(c){
+  let cname ='';
+  if (c == '1') {
+    cname = '湿垃圾';
+  } else if (c == '2') {
+    cname = '干垃圾';
+  } else if (c == '3') {
+    cname = '可回收物';
+  } else if (c == '4') {
+    cname = '有害垃圾';
+  } else {
+    cname = '未知';
+  }
+  return cname;
+}
 
 Page({
   data: {
@@ -5,10 +20,9 @@ Page({
     score:0,
     historyMode: false
   },
-  /**
-  * 生命周期函数--监听页面加载
-  */
+
   onLoad: function (options) {
+    // 从答题历史进入此页面
     if(options.historyMode){
       this.setData({
         historyMode: true,
@@ -16,17 +30,21 @@ Page({
     }
     let cateItems = wx.getStorageSync("cateItems");
     let score = wx.getStorageSync("score");
+    console.log(cateItems)
     this.setData({
       cateItems: cateItems,
       score:score
     });
   },
+
+  // 返回上个页面
   onUnload: function () {
     if(this.data.historyMode) return
     wx.navigateBack({
       url: '../../exam/exam'
     })
   },
+
   onShareAppMessage: function (ops) {
     if (ops.from === 'button') {
       // 来自页面内转发按钮
@@ -48,18 +66,3 @@ Page({
   }   
 })
 
-function c(c){
-  let cname ='';
-  if (c == '1') {
-    cname = '湿垃圾';
-  } else if (c == '2') {
-    cname = '干垃圾';
-  } else if (c == '3') {
-    cname = '可回收物';
-  } else if (c == '4') {
-    cname = '有害垃圾';
-  } else {
-    cname = '未知';
-  }
-  return cname;
-}

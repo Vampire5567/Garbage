@@ -4,6 +4,7 @@
         <text>{{config.cats[cat].name}}</text>
     </view>
 </view>
+
 <view class="list-wrapper">
     <scroll-view scroll-top="{{scrollTop}}" bindscrolltolower="loadMoreItems" class="list" enableBackToTop="true" scrollWithAnimation="true" scrollY="{{enableScroll}}" lower-threshold="20">
         <view class="section" id="section{{secId}}">
@@ -25,7 +26,3 @@
     <image src="/images/share.png"></image>
     <text>分享</text>
 </button>
-<!-- <button class="cs index" bindtap="showZsm">
-    <image src="/images/qr_b.png"></image>
-    <text>打赏</text>
-</button> -->

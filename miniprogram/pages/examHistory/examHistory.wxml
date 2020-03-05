@@ -10,7 +10,7 @@
         </view>
     </view>
     <view class="garnage-none"  wx:if="{{historyGroup.length === 0 }}" >
-        <view wx:if="{{!load}}">
+        <view  wx:if="{{!load}}">
             暂无答题记录,请先答题哦!
         </view>
         

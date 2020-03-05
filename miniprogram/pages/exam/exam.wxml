@@ -2,16 +2,6 @@
     <image src='../../images/exam.jpg' mode='widthFix' class='response'></image>
 </scroll-view>
 
-<!-- <view class="cu-bar bg-white solid-bottom ">
-    <view class="action">
-        <text class="cuIcon-title text-blue"></text>知识测试
-    </view>
-
-    <view class="action">
-        <button class="cu-btn  round line-blue" >英雄榜</button>
-    </view>
-</view> -->
-
 <view class="margin-top text-center">
     <view class="padding-lr bg-white">
         <view class="solid-bottom padding">

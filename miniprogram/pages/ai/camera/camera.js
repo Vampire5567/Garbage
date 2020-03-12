@@ -20,7 +20,7 @@ Page({
     this.ctx = wx.createCameraContext(); //创建 camera 上下文 CameraContext 对象
     var time = wx.getStorageSync("time");
     var curTime = new Date().getTime(); //返回距 1970 年 1 月 1 日之间的毫秒数
-    var timeNum = new Date(parseInt(curTime - time) * 1000).getDay(); //返回从获取到access_token到现在的天数，方便判断access_token是否过期
+    var timeNum = new Date(parseInt(curTime - time) * 1000).getDate(); //返回从获取到access_token到现在的天数，方便判断access_token是否过期
     console.log("===timeNum===" + timeNum);
     var accessToken = wx.getStorageSync("access_token");
     console.log("===accessToken===" + accessToken);

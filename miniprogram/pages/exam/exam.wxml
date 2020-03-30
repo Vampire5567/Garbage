@@ -20,6 +20,15 @@
                 </navigator>
             </view>
         </view>
+        <view class="flex solid-bottom padding justify-around">
+           
+            <view>
+                <navigator open-type="navigate" hover-class='none' url="/pages/exam/topScore/topScore" >
+                    <button class="cu-btn  round line-purple">满分排行榜</button>
+                </navigator>
+            </view>
+           
+        </view>
     </view>
 </view>
 

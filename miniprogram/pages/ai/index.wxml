@@ -31,11 +31,18 @@
 
 <!-- 城市选择框 -->
 <view id="chooseCity" style="display: {{showChooseCity?'block':'none'}};">
-    <view id="chooseCityCurrent">
-        <image src="{{images.location}}"></image>
+    <view class="chooseCity__autoLocation">
+     <view id="chooseCityCurrent" class="chooseCity__autoLocation--choosedCity">
+         当前已选:
         <text>{{config.cities[city].name}}</text>
     </view>
-    <scroll-view id="cities" scrollY="true">
+     <view class="chooseCity__autoLocation--main" bind:tap="autoLocation">
+         <text>定位</text>
+        <image src="{{images.location}}"></image>
+     </view>
+    </view>
+    
+    <scroll-view class="choose__manualLocation" id="cities" scrollY="true">
         <view bindtap="chooseCity" class="setting-item{{item.key===city?' checked':''}}" data-item-key="{{item.key}}" wx:for="{{cities}}">{{item.name}}</view>
     </scroll-view>
 </view>

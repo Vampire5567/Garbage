@@ -24,7 +24,7 @@ var e = {
               g: 41,
               b: 38
           },
-          imageSrc: "../../images/ResidualWaste.png"
+          imageSrc: "/images/ResidualWaste.png"
         },
         recyclable: {
           name: "可回收物",
@@ -35,7 +35,7 @@ var e = {
               g: 60,
               b: 113
           },
-          imageSrc: "../../images/RecycleableWaste.jpg"
+          imageSrc: "/images/RecycleableWaste.jpg"
         },
         hazardous: {
           name: "有害垃圾",
@@ -46,7 +46,7 @@ var e = {
               g: 66,
               b: 58
           },
-          imageSrc: "../../images/HazardouAwaste.jpg"
+          imageSrc: "/images/HazardouAwaste.jpg"
         },
         kitchen1: {
           name: "厨余垃圾",
@@ -57,7 +57,7 @@ var e = {
               g: 111,
               b: 98
           },
-          imageSrc: "../../images/KitchenWasteIcon1.png"
+          imageSrc: "/images/KitchenWasteIcon1.png"
         },
         kitchen2: {
           name: "餐厨垃圾",
@@ -68,7 +68,7 @@ var e = {
               g: 111,
               b: 98
           },
-          imageSrc: "../../images/KitchenWasteIcon2.png"
+          imageSrc: "/images/KitchenWasteIcon2.png"
         },
         perishable: {
           name: "易腐垃圾",
@@ -79,7 +79,7 @@ var e = {
               g: 111,
               b: 98
           },
-          imageSrc: "../../images/PerishableWasteIcon.png"
+          imageSrc: "/images/PerishableWasteIcon.png"
         },
         other: {
           name: "其他垃圾",
@@ -90,7 +90,7 @@ var e = {
               g: 163,
               b: 0
           },
-          imageSrc: "../../images/OtherWasteIcon.png"
+          imageSrc: "/images/OtherWasteIcon.png"
         },
     },
     cities: {

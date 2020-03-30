@@ -1,6 +1,5 @@
 //app.js
 App({
-
   //onlaunch监听小程序初始化，全局只触发一次
   onLaunch: function () {
 
@@ -84,6 +83,7 @@ App({
     });
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    searchResult:[]
   }
 })

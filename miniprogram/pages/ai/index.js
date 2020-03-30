@@ -1,11 +1,13 @@
 var t = require("../../utils/module"),
   s = t(require("../../mainInfo.js")),
   n = require("../../tipInfo.js");
-
-  // App（）注册一个程序，是小程序的入口方法
-  // app（）必须在app.js中注册，且只能注册一个
-  // 通过getApp（）获取app（）中的全局对象，可以进行全局变量和全局方法的使用
+const QQMapWX = require('../../libs/qqmap-wx-jssdk.min')
+// App（）注册一个程序，是小程序的入口方法
+// app（）必须在app.js中注册，且只能注册一个
+// 通过getApp（）获取app（）中的全局对象，可以进行全局变量和全局方法的使用
 getApp();
+const db = wx.cloud.database();
+const _ = db.command;
 
 Page({
 
@@ -17,7 +19,7 @@ Page({
     },
     tipInfo: n.tipInfo,
     city: "shanghai",
-    
+
   },
 
   // onLoad页面第一次加载时触发，从跳转页面返回时不能触发，可以传递参数
@@ -34,7 +36,8 @@ Page({
         })
         wx.setStorageSync("tip", true)
       }, 2000)
-    } else {}   
+    } else { }
+
   },
 
   // 初始化一些数据：将city的值存进storage，将mainInfo.js和tipInfo.js的数据导入，并将main.js中的城市信息做处理，赋值给cities数组
@@ -46,7 +49,7 @@ Page({
     });
     // 将各城市的信息由对象{}转为数组[]
     var e = [];
-    for (var a in s.default.cities){
+    for (var a in s.default.cities) {
       e.push(s.default.cities[a]);
     }
     // console.log(e) 
@@ -66,7 +69,7 @@ Page({
     // 将city的值从storage读取赋值到本地this.data.city(同步city的值)
     wx.getStorageSync("city") !== this.data.city && this.setData({
       city: wx.getStorageSync("city"),
-    });  
+    });
   },
 
   // 点击搜索框，跳转到文字搜索页面
@@ -79,13 +82,12 @@ Page({
   // 在城市选择框中选择城市
   //view层选择的城市名称传到逻辑层接收
   chooseCity: function (t) {
-    var e = t.currentTarget.dataset.itemKey;
-    console.log(e)
-    e !== this.data.city && (wx.setStorageSync("city", e), 
-    this.setData({
-      city: e,
-      showChooseCity: false,
-    })
+    var e = t.currentTarget? t.currentTarget.dataset.itemKey: t;
+    e !== this.data.city && (wx.setStorageSync("city", e),
+      this.setData({
+        city: e,
+        showChooseCity: false,
+      })
     );
   },
 
@@ -161,7 +163,66 @@ Page({
   //     url: '/pages/android/qa',
   //   })
   // },
+  autoLocation() {
+    const that =  this
+    wx.getLocation({
+      type: 'gcj02 ',
+      success(res) {
+        const { latitude, longitude } = res;
+        var qqmapsdk = new QQMapWX({
+          key: 'KLUBZ-4AKLO-VA5W7-S34Y6-3GWI5-IXB3X'
+        });
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude,
+            longitude
+          },
+          success(res){
+            if(res.status === 0){
+              const locationCity = res.result.address_component.city;
+              let key 
+              const isValid  = that.data.cities.some(item => {
+                if(locationCity.indexOf(item.name) !== -1){
+                   key = item.key
+                   return true
+                }
+              })
+              if(isValid){
+                  that.chooseCity(key);
+              }else{
+                wx.showToast({
+                  title: '当前定位城市不在识别范围内,请手动选择',
+                  icon:'none',
+                  duration: 3000
+                })
+              }
+            }else{
+              wx.showToast({
+                title: '客户端错误,请稍后试试',
+                icon:'none',
+                duration: 2000
+              })
+            }
+              
+          },
+          fail(error){
+            wx.showToast({
+              title: '获取定位失败,请稍后尝试',
+              icon:'none',
+              duration: 2000
+            })
+          }
+        })
 
+      },
+      fail(error) {
+        wx.showToast({
+          title: '用户授权失败',
+          duration: 1000
+        })
+      }
+    })
+  },
   // 转发的卡片信息
   onShareAppMessage: function () {
     return {

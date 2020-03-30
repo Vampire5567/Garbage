@@ -46,7 +46,7 @@ Page({
   },
 
   //点击下一题
-  async nextSteps() {
+   nextSteps() {
     let max = this.data.question.length;
     //在最后一题进行统计
     if (this.data.num >= max) {
@@ -73,28 +73,20 @@ Page({
       const logined = wx.getStorageSync("logined");
       const openId = wx.getStorageSync("openId");
       if (logined) {
-        try {
-          const user = db.collection("user");
-          const res = await user
-            .where({
-              _openid: openId
-            })
-            .get();
-          const userId = res.data[0]._id;
-          user.doc(userId).update({
-            data: {
-              examHistory: _.unshift({
-                cateItems,
-                score,
-                name: cateItems[0].name + "..." + cateItems.pop().name,
-                date: Date.now()
-              })
-            }
-          });
-        } catch (error) {
-          console.log(error);
+        const userId = wx.getStorageSync('userId');
+        const dateStamp = Date.now()
+        const examDetail = {
+          cateItems,
+          score,
+          name: cateItems[0].name + "..." + cateItems.pop().name,
+          date: dateStamp
+        }
+        this.updateToUser(userId,examDetail);
+        if(score === 10){
+          this.updateToFullscore(openId,dateStamp);
         }
       }
+     
       wx.navigateTo({
         url: "../result/result"
       });
@@ -103,7 +95,51 @@ Page({
       num: this.data.num < 10 ? this.data.num + 1 : 10
     });
   },
-
+  // 答题满分时记录到满分数据库中
+  // 第一次新增记录,多次则更新记录
+  async updateToFullscore(openId,dateStamp){
+       try {
+         const fullScoreTop = db.collection('fullScoreTop');
+         const res = await fullScoreTop.where({
+            _openid: openId
+         }).get();
+          
+         const fullScoreTopData = res.data[0];
+         if(fullScoreTopData){
+          const updateRes = await fullScoreTop.doc(fullScoreTopData._id).update({
+            data:{
+              count: _.inc(1),
+              dateStampArr:_.push(dateStamp)
+           }
+          })
+          updateRes && updateRes.stats.updated !== 1 && console.log(updateRes.errMsg)
+         }else{
+          fullScoreTop.add({
+            data:{
+              count: 1,
+              dateStampArr:[dateStamp]
+            }
+          })
+         }
+       } catch (error) {
+          console.log(error);
+       }
+  },
+  // 答题记录到添加到用户数据库中
+  async updateToUser(userId,examDetail){
+    try {
+      const user = db.collection("user");
+      console.log(userId)
+      const updateRes = await  user.doc(userId).update({
+        data: {
+          examHistory: _.unshift(examDetail)
+        }
+      });
+      updateRes && updateRes.stats.updated !== 1 && console.log(updateRes.errMsg)
+    } catch (error) {
+      console.log(error);
+    }
+  },
   radioChange(e) {
     console.log(e)
     let index = e.target.dataset.index; //第index+1题

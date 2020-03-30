@@ -1,0 +1,19 @@
+<view class="top-container">
+    <view class="top-th top-td__item">
+        <view class="top-th__rank w-15"></view>
+        <view class="top-th__nickname w-35">用户</view>
+        <view class="top-th__score w-25">次数</view>
+        <view class="top-th__lastly w-25">最近更新</view>
+    </view>
+    <view class="top-td">
+        <view class="top-td__item" wx:for="{{topList}}">
+            <view class="top-td__rank w-15 {{index < 3? 'score-top':''}}"  >{{index+1}}</view>
+            <view class="top-td__nickname w-35">
+             <image src="{{item.avatarUrl}}" />
+             <text > {{item.nickName}}</text>
+            </view>
+            <view class="top-td__score w-25">{{item.count}}</view>
+            <view class="top-td__lastly w-25">{{item.lastUpdated}}</view>
+        </view>
+    </view>
+</view>

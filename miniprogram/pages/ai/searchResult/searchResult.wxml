@@ -1,0 +1,20 @@
+<view class="page">
+    <view class="search-result__content">
+    <view class="result-content__intro">
+        <view class="intro__text">
+            <text>{{name}}</text>
+            <text>属于  {{category.name}}</text>
+        </view>
+        <image src="{{category.imageSrc}}" />
+    </view>
+    <view class="result-content__advice">
+        <view class="advice-item" wx:for="{{category.requirements}}">{{item}}</view>
+    </view>
+</view>
+<view class="search-result__list">
+    <view  class="result--list-title">相关物品</view >
+    <view class="result--list-wrapper">
+        <text class="result--list-item" wx:for="{{resultList}}" bind:tap="redirectOther" data-index="{{index}}">{{item.name}}</text>
+    </view>
+</view>
+</view>

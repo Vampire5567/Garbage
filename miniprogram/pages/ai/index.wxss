@@ -101,7 +101,29 @@ page {
     transform: translate(-50%,-50%);
     z-index: 1801;
 }
+#chooseCity .chooseCity__autoLocation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20rpx;
+}
+.chooseCity__autoLocation image{
+    width: 23rpx;
+    height: 30rpx;
+}
 
+.chooseCity__autoLocation--main{
+     display: flex;
+     width: 130rpx;
+    height: 50rpx;
+    align-items: center;
+    justify-content: space-evenly;
+    line-height: 20rpx;
+    color: #fae526;
+    background:rgba(142, 107, 21, .1);
+    border-radius: 25rpx;
+     
+}
 #chooseCityCurrent {
     height: 100rpx;
 }
@@ -128,29 +150,23 @@ page {
 }
 
 .setting-item {
+    display: inline-block;
     position: relative;
-    padding-left: 1em;
     border-bottom: 1px solid #f0f0f0;
-    background-color: #ffffff;
-    font-size: 30rpx;
-    line-height: 3em;
+    background-color: #E5E5E5;
+    font-size: 26rpx;
+    line-height: 1.5em;
+    padding: 5rpx 20rpx;
+    margin-left: 30rpx;
+    margin-top: 20rpx;
+    border-radius: 10rpx;
 }
 
 .setting-item:last-child {
     border-bottom: none;
 }
 
-.checked::after {
-    content: "";
-    position: absolute;
-    right: 35rpx;
-    top: 32rpx;
-    width: 30rpx;
-    height: 15rpx;
-    border-left: 2px solid #fabd26;
-    border-bottom: 2px solid #fabd26;
-    transform: rotate(-45deg);
-}
+
 
 @-webkit-keyframes broadcast {
     0% {

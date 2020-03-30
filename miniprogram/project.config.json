@@ -6,11 +6,14 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -18,10 +21,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"enhance": true
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.7",
@@ -34,6 +34,7 @@
 	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -97,6 +98,41 @@
 					"id": -1,
 					"name": "pages/ai/search",
 					"pathName": "pages/ai/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ai/search",
+					"pathName": "pages/ai/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ai/search",
+					"pathName": "pages/ai/search",
+					"query": "index=4&name=头&city=xiamen",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ai/searchResult/searchResult",
+					"pathName": "pages/ai/searchResult/searchResult",
+					"query": "index=4&name=头&city=xiamen",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ai/searchResult/searchResult",
+					"pathName": "pages/ai/searchResult/searchResult",
+					"query": "index=3&name=头&city=xiamen",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/exam/topScore/topScore",
+					"pathName": "pages/exam/topScore/topScore",
 					"scene": null
 				}
 			]

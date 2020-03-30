@@ -1,5 +1,6 @@
 const db = wx.cloud.database();
 const _ = db.command;
+const app = getApp();
 
 var t = require("../../utils/module"),
   s = t(require("../../mainInfo.js"));
@@ -7,7 +8,7 @@ Page({
   data: {
     MAX_LIMIT: 20, //返回数据的最大个数
     page: 0, //设置上拉加载的第几次，默认为0
-    dataCount: 0, 
+    dataCount: 0,
     datas: [], //放置返回数据的数组
     searchTxt: "", //搜索的完整关键字
     logo: "",
@@ -18,7 +19,7 @@ Page({
     historyMode: false //用来标记用户是从哪里进入的,从搜索记录进入为true
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       config: s.default,
       map: this.data.map,
@@ -31,7 +32,7 @@ Page({
         page: 0,
         datas: [],
       });
-      if(options.historyMode === 'true'){
+      if (options.historyMode === 'true') {
         this.setData({
           historyMode: true
         });
@@ -42,22 +43,22 @@ Page({
 
   // bindconfirm绑定的事件，在点击完成按钮时触发，从view层传入'完整的关键字e'给逻辑层
   //searchIcon：搜索包含关键字的垃圾名称，显示在页面上
-  searchIcon: function(e) {
+  searchIcon: function (e) {
     // console.log(e)
     this.setData({
       searchTxt: e.detail.value,
       datas: [],
-      page:0,
-      isHasData:true
+      page: 0,
+      isHasData: true
     })
-    this.onGetData(); 
+    this.onGetData();
   },
 
   //获取包含关键字的垃圾名称
-  onGetData: function() {
-    
-    if(!this.data.isHasData) return
-    
+  onGetData: function () {
+
+    if (!this.data.isHasData) return
+
     wx.showLoading({
       title: "正在加载数据中....."
     });
@@ -67,8 +68,8 @@ Page({
     if (this.data.page == 0) {
       this.data.datas = [];
     }
-    
-    var datas = db
+
+       db
       .collection("product")
       .skip(this.data.page * this.data.MAX_LIMIT)
       .limit(this.data.MAX_LIMIT)
@@ -87,48 +88,37 @@ Page({
           // 按下搜索、下拉刷新、上拉刷新都会进行数据请求，即执行onGetData（），page等于0时（即按下搜索，第一次进行数据请求），会将搜索关键字上传到搜索历史中
           if (logined && !that.data.historyMode && that.data.page === 0) {
             try {
-              const user = db.collection("user");
-              const res = await user
-                .where({
-                  _openid: openId
-                })
-                .get();
-              // const searchHistory = res.data[0].searchHistory;
-              const userId = res.data[0]._id;
-              user.doc(userId).update({
-                data: {
-                  searchHistory: _.unshift({
-                    key: that.data.searchTxt,
-                    date: Date.now()
-                  })
-                }
-              });
+              const key = that.data.searchTxt
+              that.saveSearchHistory(openId, key)
             } catch (error) {
               console.log(error);
             }
           }
           // 将搜索的包含关键字的结果存入datas数组
           const data = res.data
-          console.log( that.data.datas)
-         
-           if( data.length === 0 && that.data.page === 0 ){
+          console.log(that.data.datas)
+
+          if (data.length === 0 && that.data.page === 0) {
             that.setData({
               isHasData: false
             });
             return
-           }
-          if (data.length < that.data.MAX_LIMIT  && that.data.page>0 ) {
+          }
+          if (data.length < that.data.MAX_LIMIT && that.data.page > 0) {
             wx.showToast({
               title: "数据已经加载完",
               icon: "none"
             });
-            
+
           }
+          const datas = that.data.datas.concat(data)
           that.setData({
-            datas: that.data.datas.concat(data),
+            datas: datas,
             isHasData: true,
-            page:that.data.page + 1
+            page: that.data.page + 1
           });
+          app.globalData.searchResult = datas
+          
         },
         fail: res => {
           wx.hideLoading();
@@ -142,39 +132,55 @@ Page({
         }
       });
   },
-  onGoHome: function() {
+  onGoHome: function () {
     wx.switchTab({
       url: "/pages/ai/index"
     });
   },
-  onItemClick: function(event) {
-    console.log(event)
-    var index = event.currentTarget.dataset.index;
-    var config = s.default;
-    var logoImg =config.cats[config.cities[this.data.city].cats[this.data.map[index]]].imageSrc;
-    this.setData({
-      logo: logoImg,
-      isShow: !this.data.isShow
-    });
+  onItemClick: function (event) {
+    const {index,name} = event.currentTarget.dataset;
+    wx.navigateTo({
+      url:`/pages/ai/searchResult/searchResult?name=${name}&index=${index}&city=${this.data.city}`
+    })
   },
-  hideModal: function() {
+  hideModal: function () {
     this.setData({
       isShow: !this.data.isShow
     });
   },
-  cancelSearch: function(t) {
+  cancelSearch: function (t) {
     wx.navigateBack({
       delta: 1
     });
   },
   // 上拉刷新，重新请求
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.data.page = 0;
     this.data.datas = [];
     this.onGetData();
   },
-// 下拉加载更多
-  onReachBottom: function() {
+  // 下拉加载更多
+  onReachBottom: function () {
     this.onGetData();
+  },
+  // 保存搜索记录
+  async saveSearchHistory(openId, key) {
+    const user = db.collection("user");
+    const res = await user
+      .where({
+        _openid: openId
+      })
+      .get();
+    const userId = res.data[0]._id;
+
+    // const searchHistory = res.data[0].searchHistory;
+    user.doc(userId).update({
+      data: {
+        searchHistory: _.unshift({
+          key,
+          date: Date.now()
+        })
+      }
+    });
   }
 });
